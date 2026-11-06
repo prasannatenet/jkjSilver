@@ -1,0 +1,174 @@
+<?php
+
+use App\Http\Controllers\Api\AdminSettingController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\CheckoutController;
+use App\Http\Controllers\Api\ComboController;
+use App\Http\Controllers\Api\ContentController;
+use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\MetalPriceController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\OffersController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SearchController;
+use App\Http\Controllers\Api\WishlistController;
+use App\Http\Controllers\Frontend\FrontendCheckoutController;
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| JSON API (prefixed with /api by bootstrap/app.php)
+|--------------------------------------------------------------------------
+|
+| The complete storefront API consumed by the React frontend.
+|
+| Live on the deployed domain:
+|   https://vasuhjewels.com/gehna/api/v1/...
+|
+| ## Authentication
+|
+|   POST /auth/register  -> { token, token_type, user }
+|   POST /auth/login     -> { token, token_type, user }
+|
+| Send the token on every protected call:
+|
+|   Authorization: Bearer <token>
+|
+| Tokens are Sanctum personal access tokens. The routes grouped under
+| `auth:sanctum` below are the ones that require one.
+|
+| ## Response envelope
+|
+|   success  bool     true on 2xx
+|   message  string   human readable, safe to show in a toast
+|   data     mixed    the payload
+|   meta     object   counts, pagination, echoed filters
+|   errors   object   per-field validation messages (422 only)
+|
+| ## Rate limits
+|
+| Public reads are throttled at 120/min and auth at 10/min: enough for a page
+| that fires a dozen calls on mount, still enough to stop a runaway client or
+| a credential-stuffing loop.
+|
+*/
+
+Route::prefix('v1')->name('api.')->group(function () {
+
+    // ── Public: home & site content ────────────────────────────────
+    Route::get('home', [ContentController::class, 'home'])->name('home');
+    Route::get('sliders', [ContentController::class, 'sliders'])->name('sliders.index');
+    Route::get('faqs', [ContentController::class, 'faqs'])->name('faqs.index');
+    Route::get('testimonials', [ContentController::class, 'testimonials'])->name('testimonials.index');
+    Route::get('settings', [ContentController::class, 'settings'])->name('settings');
+    Route::get('coupons', [OffersController::class, 'coupons'])->name('coupons.index');
+    Route::get('offers', [OffersController::class, 'index'])->name('offers.index');
+    Route::post('newsletter', [ContentController::class, 'newsletter'])->name('newsletter');
+    Route::post('location/detect', [LocationController::class, 'detect'])
+        ->middleware('throttle:10,1')
+        ->name('location.detect');
+    Route::post('location/detect-by-ip', [LocationController::class, 'detectByIp'])
+        ->middleware('throttle:10,1')
+        ->name('location.detect-by-ip');
+
+    // Store settings are writable only by authenticated administrators.
+    Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum', 'admin'])->group(function () {
+        Route::get('settings', [AdminSettingController::class, 'show'])->name('settings.show');
+        Route::match(['put', 'patch'], 'settings', [AdminSettingController::class, 'update'])->name('settings.update');
+        Route::post('settings/test-email', [AdminSettingController::class, 'testEmail'])->name('settings.test-email');
+    });
+
+    // ── Public: catalogue ──────────────────────────────────────────
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('products/{slug}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('products/{slug}/related', [ProductController::class, 'related'])->name('products.related');
+    Route::get('products/{slug}/reviews', [ProductController::class, 'reviews'])->name('products.reviews');
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('products/{slug}/reviews', [ProductController::class, 'storeReview'])->name('products.reviews.store');
+        Route::match(['put', 'patch'], 'products/{slug}/reviews/{review}', [ProductController::class, 'updateReview'])->name('products.reviews.update');
+        Route::delete('products/{slug}/reviews/{review}', [ProductController::class, 'destroyReview'])->name('products.reviews.destroy');
+    });
+
+    Route::get('categories', [CategoryController::class, 'index'])->name('categories.index');
+    // Registered before categories/{slug} so "tree" is never swallowed as a slug.
+    Route::get('categories/tree', [CategoryController::class, 'index'])->name('categories.tree');
+    Route::get('categories/{slug}', [CategoryController::class, 'show'])->name('categories.show');
+    Route::get('categories/{slug}/products', [CategoryController::class, 'products'])->name('categories.products');
+
+    Route::get('brands', [BrandController::class, 'index'])->name('brands.index');
+    Route::get('brands/{slug}', [BrandController::class, 'show'])->name('brands.show');
+    Route::get('brands/{slug}/products', [BrandController::class, 'products'])->name('brands.products');
+
+    Route::get('combos', [ComboController::class, 'index'])->name('combos.index');
+    Route::get('combos/{slug}', [ComboController::class, 'show'])->name('combos.show');
+
+    Route::get('search', SearchController::class)->name('search');
+
+    Route::get('pages', [ContentController::class, 'pages'])->name('pages.index');
+    Route::get('pages/{slug}', [ContentController::class, 'page'])->name('pages.show');
+
+    // Live metal spot rates. Throttled tighter than the rest of the catalogue
+    // because the figures are cached but the endpoint is public: without a
+    // ceiling one client polling in a loop would still be hammering the server
+    // between cache windows.
+    Route::get('metal-prices', [MetalPriceController::class, 'index'])
+        ->middleware('throttle:60,1')
+        ->name('metal-prices.index');
+    Route::get('metal-prices/{metal}', [MetalPriceController::class, 'show'])
+        ->middleware('throttle:60,1')
+        ->name('metal-prices.show');
+
+    // ── Auth ───────────────────────────────────────────────────────
+    // Tighter throttle than the reads: 10/min is generous for a human and
+    // useless to someone guessing passwords. Login additionally shares the
+    // Blade form's lockout (see AuthController).
+    Route::prefix('auth')->name('auth.')->middleware('throttle:10,1')->group(function () {
+        Route::post('register', [AuthController::class, 'register'])->name('register');
+        Route::post('login', [AuthController::class, 'login'])->name('login');
+    });
+
+    // ── Authenticated ──────────────────────────────────────────────
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('auth/me', [AuthController::class, 'me'])->name('auth.me');
+        Route::put('auth/profile', [AuthController::class, 'updateProfile'])->name('auth.profile');
+        Route::put('auth/password', [AuthController::class, 'updatePassword'])->name('auth.password');
+        Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+        Route::post('auth/logout-all', [AuthController::class, 'logoutAll'])->name('auth.logout-all');
+
+        Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+        Route::post('cart', [CartController::class, 'store'])->name('cart.store');
+        // Bundle offers. Kept as its own action because a combo is added as one
+        // line per product, priced at the allocated share of the bundle price -
+        // sending the products one by one would charge full price for each.
+        Route::post('cart/combo', [CartController::class, 'storeCombo'])->name('cart.combo.store');
+        Route::patch('cart/{cart}', [CartController::class, 'update'])->name('cart.update');
+        Route::delete('cart/{cart}', [CartController::class, 'destroy'])->name('cart.destroy');
+        Route::delete('cart', [CartController::class, 'clear'])->name('cart.clear');
+
+        Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+        Route::post('wishlist/toggle', [WishlistController::class, 'toggle'])->name('wishlist.toggle');
+        Route::delete('wishlist/{productId}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+        Route::delete('wishlist', [WishlistController::class, 'clear'])->name('wishlist.clear');
+
+        Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('orders/{id}', [OrderController::class, 'show'])->name('orders.show');
+        Route::post('orders/{id}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel');
+        Route::post('orders/{id}/return-requests', [OrderController::class, 'storeReturnRequest'])->name('orders.return-requests.store');
+
+        // ── Checkout & Payments ────────────────────────────────────────
+        Route::get('checkout/summary', [CheckoutController::class, 'summary'])->name('checkout.summary');
+        Route::post('checkout/apply-coupon', [CheckoutController::class, 'applyCoupon'])->name('checkout.apply-coupon');
+        Route::post('checkout/remove-coupon', [CheckoutController::class, 'removeCoupon'])->name('checkout.remove-coupon');
+        Route::post('checkout/apply-coins', [CheckoutController::class, 'applyCoins'])->name('checkout.apply-coins');
+        Route::post('checkout/remove-coins', [CheckoutController::class, 'removeCoins'])->name('checkout.remove-coins');
+        Route::post('checkout/place-order', [CheckoutController::class, 'placeOrder'])->name('checkout.place-order');
+        Route::post('checkout/verify-razorpay', [CheckoutController::class, 'verifyRazorpay'])->name('checkout.verify-razorpay');
+        Route::get('checkout/payment-status/{order}', [CheckoutController::class, 'paymentStatus'])->name('checkout.payment-status');
+    });
+
+    // ── Public Payment Webhooks ─────────────────────────────────────
+    Route::post('webhooks/razorpay', [FrontendCheckoutController::class, 'razorpayWebhook'])->name('webhooks.razorpay');
+});

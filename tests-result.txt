@@ -1,0 +1,659 @@
+﻿
+  [44;1m INFO [49;22m ´╗┐.
+
+
+   PASS  Tests\Unit\ExampleTest
+  Ô£ô that true is true                                                                                                                         0.03s  
+
+   PASS  Tests\Feature\AdminDashboardTest
+  Ô£ô it shows real recent orders and paid top products on the admin dashboard                                                                  7.66s  
+  Ô£ô it returns the correct paid sales series for week, month, and year                                                                        0.07s  
+  Ô£ô it rejects an invalid sales period and protects the sales endpoint                                                                        0.06s  
+  Ô£ô it records the payment timestamp when an admin marks an order paid                                                                        0.41s  
+
+   PASS  Tests\Feature\AdminDeliveryPartnerTest
+  Ô£ô admin can update delivery partner automation rules without re-entering secrets                                                            0.06s  
+  Ô£ô delivery settings form never renders the raw courier token                                                                                0.06s  
+  Ô£ô shipment management dashboard shows stats and filters                                                                                     0.07s  
+
+   PASS  Tests\Feature\AdminProductVariationTest
+  Ô£ô admin can create and immediately see variation details and photo                                                                          0.11s  
+  Ô£ô an existing saved variation renders its details and photo                                                                                 0.07s  
+
+   PASS  Tests\Feature\AdminReviewTest
+  Ô£ô it lets an admin view every product review and its photos                                                                                 0.08s  
+  Ô£ô it filters admin reviews by text, customer, product, rating, and date                                                                     0.09s  
+  Ô£ô it paginates product reviews twenty at a time                                                                                             0.07s  
+  Ô£ô it blocks non-admin users from product reviews                                                                                            0.05s  
+  Ô£ô it rejects invalid admin review filters                                                                                                   0.05s  
+
+   PASS  Tests\Feature\AdminUsersTest
+  Ô£ô it lets admins view all registered users on the admin users page                                                                          0.07s  
+  Ô£ô it lets admins search users by name, email or mobile                                                                                      0.07s  
+  Ô£ô it lets admins filter users by role                                                                                                       0.06s  
+  Ô£ô it blocks non-admin users from the admin users page                                                                                       0.05s  
+  Ô£ô it lets admins remove a customer but protects admin accounts                                                                              0.05s  
+  Ô£ô it shows the users page with order counts and coin balances                                                                               0.07s  
+
+   PASS  Tests\Feature\ApiCheckoutTest
+  Ô£ô it returns checkout summary for authenticated user with cart items                                                                        0.13s  
+  Ô£ô it places an order with Cash on Delivery (COD) via API                                                                                    0.50s  
+  Ô£ô it applies and validates a coupon code via API                                                                                            0.12s  
+  Ô£ô it applies Gehna Coins via API                                                                                                            0.10s  
+
+   PASS  Tests\Feature\ApiComboCartTest
+  Ô£ô it charges the combo price when a bundle is added through the API                                                                         0.16s  
+  Ô£ô it makes the allocated line prices sum to the combo price exactly                                                                         0.11s  
+  Ô£ô it reports the pre-combo price so a client can strike it through                                                                          0.08s  
+  Ô£ô it applies a fixed discount as well as a percentage one                                                                                   0.08s  
+  Ô£ô it auto-detects a bundle that was added one product at a time                                                                             0.12s  
+  Ô£ô it refuses a combo that is switched off                                                                                                   0.08s  
+  Ô£ô it refuses a combo whose schedule window has closed                                                                                       0.07s  
+  Ô£ô it keeps the discount when a disabled product is not part of what was sold                                                                0.10s  
+  Ô£ô it ignores a deactivated product rather than selling it inside the bundle                                                                 0.11s  
+  Ô£ô it refuses a combo that no longer has two live products                                                                                   0.08s  
+  Ô£ô it tops up the same bundle instead of duplicating its lines                                                                               0.11s  
+  Ô£ô it never takes a price from the request body                                                                                              0.11s  
+  Ô£ô it restores regular prices when a bundle line is removed                                                                                  0.17s  
+  Ô£ô it keeps the derived prices out of the carts table                                                                                        0.11s  
+  Ô£ô it requires a token to add a bundle                                                                                                       0.09s  
+  Ô£ô it scopes bundle lines to the signed in customer                                                                                          0.17s  
+
+   PASS  Tests\Feature\ApiStorefrontTest
+  Ô£ô it returns the standard envelope from the product list                                                                                    0.15s  
+  Ô£ô it paginates and caps per_page                                                                                                            0.16s  
+  Ô£ô it hides inactive products from the list and the detail endpoint                                                                          0.10s  
+  Ô£ô it filters the product list by on_sale and audience                                                                                       0.10s  
+  Ô£ô it serves the category list, the tree, and a single category                                                                              0.07s  
+  Ô£ô it includes child category products on a category page                                                                                    0.08s  
+  Ô£ô it returns detail with variations priced the way the storefront shows them                                                                0.10s  
+  Ô£ô it returns absolute image urls so a separate origin can load them                                                                         0.11s  
+  Ô£ô it registers a customer and returns a usable bearer token                                                                                 0.09s  
+  Ô£ô it rejects a duplicate phone with a field error, not a server error                                                                       0.07s  
+  Ô£ô it logs in with valid credentials and refuses bad ones                                                                                    0.11s  
+  Ô£ô it rejects protected endpoints without a token                                                                                            0.10s  
+  Ô£ô it revokes the token on logout                                                                                                            0.08s  
+  Ô£ô it adds, updates and removes a cart line with server-side pricing                                                                         0.16s  
+  Ô£ô it tops up an existing cart line instead of duplicating it                                                                                0.18s  
+  Ô£ô it never shows one customer another customer cart                                                                                         0.23s  
+  Ô£ô it toggles a wishlist entry and reports the new state                                                                                     0.06s  
+  Ô£ô it lists only the signed-in customer orders                                                                                               0.07s  
+  Ô£ô it serves the whole home payload in one request                                                                                           0.11s  
+  Ô£ô it requires a search term                                                                                                                 0.11s  
+  Ô£ô it never exposes mail credentials through the settings endpoint                                                                           0.07s  
+  Ô£ô it requires no token for the public read endpoints                                                                                        0.12s  
+  Ô£ô it reports a 404 in the standard envelope for a missing product                                                                           0.09s  
+  Ô£ô it uses the same envelope for every framework error, not just controller ones                                                             0.11s  
+  Ô£ô it leaves web error handling alone                                                                                                        0.07s  
+
+   WARN  Tests\Feature\Auth\AuthPageChromeTest
+  - it hides the global chrome on the login page ÔåÆ login.blade.php no longer declares the hide_topbar_navbar / hide_footer sections.          0.14s  
+  - it hides the global chrome on the register page ÔåÆ register.blade.php no longer declares the hide_topbar_navbar / hide_footer sections.    0.07s  
+  Ô£ô it still renders the global topbar, navbar and footer on public pages                                                                     1.91s  
+
+   PASS  Tests\Feature\Auth\AuthenticationTest
+  Ô£ô login screen can be rendered                                                                                                              1.72s  
+  Ô£ô users can authenticate using the login screen                                                                                             0.05s  
+  Ô£ô users can not authenticate with invalid password                                                                                          0.29s  
+  Ô£ô users can logout                                                                                                                          0.12s  
+
+   PASS  Tests\Feature\Auth\EmailVerificationTest
+  Ô£ô email verification screen can be rendered                                                                                                 1.91s  
+  Ô£ô email can be verified                                                                                                                     0.05s  
+  Ô£ô email is not verified with invalid hash                                                                                                   0.15s  
+
+   PASS  Tests\Feature\Auth\PasswordConfirmationTest
+  Ô£ô confirm password screen can be rendered                                                                                                   1.64s  
+  Ô£ô password can be confirmed                                                                                                                 0.05s  
+  Ô£ô password is not confirmed with invalid password                                                                                           0.29s  
+
+   PASS  Tests\Feature\Auth\PasswordResetTest
+  Ô£ô reset password link screen can be rendered                                                                                                1.85s  
+  Ô£ô reset password link can be requested                                                                                                      0.28s  
+  Ô£ô reset password screen can be rendered                                                                                                     2.00s  
+  Ô£ô password can be reset with valid token                                                                                                    0.29s  
+
+   PASS  Tests\Feature\Auth\PasswordUpdateTest
+  Ô£ô password can be updated                                                                                                                   0.11s  
+  Ô£ô correct password must be provided to update password                                                                                      0.12s  
+
+   FAIL  Tests\Feature\Auth\RegistrationTest
+  Ô£ô registration screen can be rendered                                                                                                       1.85s  
+  Ô¿» new users can register                                                                                                                    0.05s  
+
+   PASS  Tests\Feature\Auth\RoleBasedRedirectTest
+  Ô£ô admin is redirected to admin dashboard after login                                                                                        0.21s  
+  Ô£ô normal user is redirected to account page after login                                                                                     0.24s  
+  Ô£ô normal user cannot access admin area                                                                                                      0.12s  
+  Ô£ô normal user can access frontend account pages                                                                                             6.91s  
+
+   PASS  Tests\Feature\CartComboPriceTest
+  Ô£ô it applies the combo price once every combo product is in the cart                                                                        0.06s  
+  Ô£ô it keeps the full price while a combo product is still missing                                                                            0.09s  
+  Ô£ô it supports fixed amount combo discounts                                                                                                  0.16s  
+  Ô£ô it shows the combo price in the cart order summary                                                                                        1.94s  
+  Ô£ô it applies the combo price for guests who are not logged in                                                                               2.83s  
+  Ô£ô it returns the combo discount with ajax cart updates                                                                                      0.17s  
+  Ô£ô it allows a coupon while one product of a four-product combo is still missing                                                             2.31s  
+  Ô£ô it clears an applied coupon and disables coupons when the fourth product completes a combo                                                1.66s  
+  Ô£ô it does not allow a coupon on a complete automatically detected combo at checkout placement                                               0.40s  
+  Ô£ô it rejects a coupon for a complete explicit combo even when the combo has zero discount                                                   0.06s  
+  Ô£ô it allows a coupon again after the combo item is removed from the current order                                                           0.09s  
+  Ô£ô it charges the combo price at checkout and on the generated order                                                                         2.03s  
+  Ô£ô it rounds the order total to whole rupees so the page and the charge always match                                                         2.63s  
+  Ô£ô it exposes the rounding rule on the order model                                                                                           0.14s  
+  Ô£ô it formats the same price identically on the card, the detail page and the cart                                                           7.55s  
+  Ô£ô it shows the selected variation image in the cart, falling back to the product image                                                      6.36s  
+  Ô£ô it shows the variation image for a guest cart too                                                                                         2.17s  
+  Ô£ô it keeps the combo price when every product of a selected combo is still in the cart                                                      0.08s  
+  Ô£ô it puts the surviving combo lines back on their regular price once a product is removed                                                   0.08s  
+  Ô£ô it leaves the stored combo price untouched so a GET never writes to the carts table                                                       0.14s  
+  Ô£ô it shows a restorable combo suggestion naming the product that was removed                                                                2.37s  
+  Ô£ô it does not offer a restore button for a combo that is merely partial                                                                     2.89s  
+  Ô£ô it restores the combo price when the customer puts the removed product back                                                               0.12s  
+  Ô£ô it charges the full original total on the order for a broken combo                                                                        0.72s  
+  Ô£ô it still charges the combo price on the order when the combo is intact                                                                    0.57s  
+  Ô£ô it uses the sale price of a variable product that has no variations yet                                                                   0.18s  
+  Ô£ô it adds up a combo using the sale price of every product that has one                                                                     0.08s  
+  Ô£ô it shows the original price struck through and the post-combo charge on the cart page                                                     1.81s  
+  Ô£ô it exposes the original unit price to the ajax summary so the price cell stays in sync                                                    0.07s  
+  Ô£ô it quotes the same price on the product card and the product detail page                                                                  0.21s  
+  Ô£ô it never quotes an out-of-stock variation when a buyable one exists                                                                       0.06s  
+
+   FAIL  Tests\Feature\CheckoutFlowTest
+  Ô£ô it places COD order with persisted order items and transaction                                                                            0.40s  
+  Ô£ô it verifies Razorpay signature and marks payment as paid                                                                                  0.32s  
+  Ô¿» it deducts stock on payment capture and restocks on full refund webhook                                                                   0.71s  
+
+   PASS  Tests\Feature\CheckoutIdempotencyTest
+  Ô£ô it returns the original order when COD checkout is submitted twice                                                                        0.09s  
+  Ô£ô it reuses one Razorpay gateway order for repeated checkout submissions                                                                    0.09s  
+  Ô£ô it makes repeated payment verification and stock deduction idempotent                                                                     0.52s  
+  Ô£ô it reuses a failed online order when the customer retries checkout                                                                        1.68s  
+  Ô£ô it returns protected payment status for processing and paid orders                                                                        0.13s  
+
+   PASS  Tests\Feature\CouponOnePerUserTest
+  Ô£ô it disables a coupon for a customer who has already redeemed it                                                                           2.37s  
+  Ô£ô it reports the same reason through the service the checkout uses to apply coupons                                                         0.05s  
+  Ô£ô it refuses to apply a coupon the customer has already redeemed                                                                            0.14s  
+  Ô£ô it records the redemption when the order is placed                                                                                        0.77s  
+  Ô£ô it still lets a different customer redeem the same coupon                                                                                 3.37s  
+  Ô£ô it leaves a coupon usable by a customer who redeemed a different one                                                                      0.12s  
+  Ô£ô it does not limit guests, who cannot be tracked per account                                                                               0.10s  
+  Ô£ô it enforces one redemption per account in the database as well                                                                            0.14s  
+  Ô£ô it still prefers the global reason when the coupon is already dead for everyone                                                           0.11s  
+
+   PASS  Tests\Feature\DeliveryTrackingUrlTest
+  Ô£ô the default Delhivery tracking URL uses the public awb path                                                                               0.14s  
+  Ô£ô a partner without a template falls back to the Delhivery default                                                                          0.10s  
+  Ô£ô a configured template always wins over the fallback                                                                                       0.10s  
+  Ô£ô booking fills in the correct tracking URL from the courier response                                                                       0.11s  
+  Ô£ô syncing repairs a shipment that has a waybill but no tracking URL                                                                         0.17s  
+  Ô£ô syncing never overwrites a tracking URL that is already set                                                                               0.19s  
+  Ô£ô a partner with Delhivery One and an Express token books through Express                                                                   0.17s  
+  Ô£ô a partner with Delhivery One but no Express token explains the fix                                                                        0.09s  
+  Ô£ô the admin form warns when a Delhivery partner has no Express token                                                                        0.14s  
+  Ô£ô the admin form shows no token warning once a token is stored                                                                              0.12s  
+  Ô£ô the admin form warns when the pickup warehouse name is missing                                                                            0.10s  
+  Ô£ô the admin form placeholder uses the public awb tracking URL                                                                               0.14s  
+  Ô£ô a manual order without an AWB is never auto-rewritten by the repair                                                                       0.09s  
+  Ô£ô the repair resets a booked shipment that has no AWB                                                                                       0.15s  
+  Ô£ô the repair leaves a properly booked shipment alone                                                                                        0.21s  
+  Ô£ô the shipment dashboard shows the courier error that caused a failure                                                                      0.24s  
+  Ô£ô no Delhivery endpoint path is hardcoded in the driver                                                                                     0.13s  
+  Ô£ô endpoints resolve from config against the sandbox base URL                                                                                0.08s  
+  Ô£ô endpoints switch to production when the partner leaves sandbox                                                                            0.10s  
+  Ô£ô a per-partner endpoint override beats the config value                                                                                    0.21s  
+  Ô£ô a per-partner base URL override is respected                                                                                              0.09s  
+  Ô£ô the waybill is allocated with a GET to the bulk endpoint                                                                                  0.11s  
+  Ô£ô a 405 from the waybill endpoint is reported instead of a silent no-AWB                                                                    0.12s  
+  Ô£ô an unusable token is reported as a token problem, not a bare status code                                                                  0.18s  
+  Ô£ô a rejected token explains how to fix it                                                                                                   0.11s  
+  Ô£ô the AWB is read from a data wrapped bulk response                                                                                         0.13s  
+  Ô£ô a serviceable pincode is parsed from the real delivery_codes payload                                                                      0.08s  
+  Ô£ô max_weight of zero means unlimited, not a zero kilogram cap                                                                               0.10s  
+  Ô£ô a real weight cap is reported and shown                                                                                                   0.15s  
+  Ô£ô an empty delivery_codes array means the pincode is not serviceable                                                                        0.18s  
+  Ô£ô a pincode without cash on delivery is flagged to the operator                                                                             0.23s  
+  Ô£ô a malformed pincode is rejected before any request is made                                                                                0.18s  
+  Ô£ô the courier error is surfaced instead of a generic booking failure                                                                        0.17s  
+  Ô£ô booking fails before allocating an AWB when no warehouse is configured                                                                    0.11s  
+  Ô£ô an empty Delhivery One realm is reported as missing config, not a bad realm                                                               0.08s  
+  Ô£ô missing Delhivery One client credentials name the setting to use                                                                          0.16s  
+  Ô£ô a Delhivery API endpoint pasted as the template falls back to the public page                                                             0.09s  
+  Ô£ô every Delhivery API host and path shape is recognised                                                                                     0.07s  
+  Ô£ô a public customer tracking page is not mistaken for an API endpoint                                                                       0.12s  
+  Ô£ô saving a courier API URL as the template is rejected with an actionable message                                                           0.11s  
+  Ô£ô saving a public tracking page as the template is accepted                                                                                 0.11s  
+  Ô£ô the repair command rewrites a stored API URL from the waybill                                                                             0.15s  
+  Ô£ô the repair command leaves a valid custom tracking URL untouched                                                                           0.18s  
+  Ô£ô the repair command is idempotent                                                                                                          0.12s  
+  Ô£ô the repair command fixes a bad row even while the partner template is still wrong                                                         0.08s  
+  Ô£ô the repair command flags a partner template that points at the API                                                                        0.14s  
+  Ô£ô the admin form warns that the template must not be the courier API                                                                        0.18s  
+  Ô£ô a valid custom template still wins over the fallback                                                                                      0.07s  
+
+   PASS  Tests\Feature\DeliveryWebhookTest
+  Ô£ô courier webhook accepts a correctly signed POST without CSRF                                                                              0.24s  
+  Ô£ô courier webhook is reachable at the public URL with no session or CSRF token                                                              0.15s  
+  Ô£ô courier webhook rejects a tampered or missing signature                                                                                   0.13s  
+  Ô£ô strict webhook mode rejects unsigned callbacks when no secret is configured                                                               0.15s  
+  Ô£ô webhook signature is accepted with or without the sha256 prefix                                                                           0.12s  
+  Ô£ô a repeated webhook does not duplicate tracking events                                                                                     0.15s  
+  Ô£ô cancelling an order asks the courier to stop the shipment                                                                                 0.15s  
+  Ô£ô cancelling via the order status dropdown also cancels the courier shipment                                                                0.19s  
+  Ô£ô a courier outage never blocks an order cancellation but is flagged                                                                        0.15s  
+  Ô£ô a shipment that was never booked is cancelled without calling the courier                                                                 0.18s  
+  Ô£ô prepaid orders are sent to the courier as Prepaid, not Pre-paid                                                                           0.07s  
+  Ô£ô the webhook URL rendered in the admin panel is the live public route                                                                      0.11s  
+
+   PASS  Tests\Feature\EmailTemplatesTest
+  Ô£ô it renders the branded invoice email with the order summary                                                                               0.52s  
+  Ô£ô it renders the credit note email with the refund summary                                                                                  0.46s  
+  Ô£ô it renders the return request email with the payout details                                                                               0.08s  
+  Ô£ô it renders the shipment email with a status pill and tracking timeline                                                                    0.10s  
+  Ô£ô it renders the welcome email with the member benefits                                                                                     0.07s  
+
+   PASS  Tests\Feature\ExampleTest
+  Ô£ô it returns a successful response                                                                                                          2.33s  
+
+   PASS  Tests\Feature\FloatingOfferTabTest
+  Ô£ô it renders the offer tab with every running coupon on the storefront                                                                      1.98s  
+  Ô£ô it follows the shopper down the page because the tab is fixed to the viewport                                                             1.69s  
+  Ô£ô it keeps dead coupons out of the promotional tab                                                                                          2.26s  
+  Ô£ô it says so when no coupon is running at all                                                                                               2.38s  
+  Ô£ô it marks a coupon the signed-in shopper already redeemed as spent                                                                         1.91s  
+  Ô£ô it shows the same coupon as available to a shopper who has not used it                                                                    1.67s  
+  Ô£ô it describes fixed and coin coupons in shopper language                                                                                   1.47s  
+
+   PASS  Tests\Feature\FrequentlyBoughtTogetherTest
+  Ô£ô it recommends products most often purchased with the viewed product                                                                       1.65s  
+  Ô£ô it refreshes cached recommendations when a new valid order is recorded                                                                    0.05s  
+  Ô£ô it returns no co-purchase recommendations when no valid order exists                                                                      0.05s  
+
+   PASS  Tests\Feature\FrontendCommerceFlowTest
+  Ô£ô it adds cart item with product_id and increments same product quantity only                                                               0.06s  
+  Ô£ô it allows guests to add products to the session cart without login                                                                        0.05s  
+  Ô£ô it applies and removes coupon from checkout session                                                                                       0.05s  
+  Ô£ô it toggles wishlist for authenticated user                                                                                                0.05s  
+  Ô£ô it allows guests to toggle wishlist products without login                                                                                0.04s  
+  Ô£ô it places cod order with coupon discount applied to total                                                                                 0.30s  
+  Ô£ô it shows cart summary with coupon and supports quantity update and remove                                                                 1.71s  
+  Ô£ô it requires variation for variable product cart add and stores selected variation                                                         0.08s  
+  Ô£ô it toggles wishlist by selected variation for variable products                                                                           0.12s  
+  Ô£ô it makes the lowest priced product free with a buy 1 get 1 coupon                                                                         5.22s  
+  Ô£ô it makes the lowest priced units free when a buy get coupon spans multiple bundles                                                        0.71s  
+  Ô£ô it lets guests view the cart page with their session cart items                                                                           2.09s  
+  Ô£ô it lets guests view the wishlist page with their session wishlist items                                                                   0.06s  
+  Ô£ô it requires guests to login before checkout                                                                                               0.04s  
+  Ô£ô it merges guest session cart and wishlist into the account after login                                                                    0.06s  
+  Ô£ô it updates logged in cart item quantity over ajax with fresh totals and no page reload                                                    0.05s  
+  Ô£ô it updates guest session cart quantity over ajax without a page reload                                                                    0.05s  
+  Ô£ô it returns validation errors as json for ajax cart quantity updates                                                                       0.06s  
+  Ô£ô it renders the shop price filter using real product price bounds                                                                          1.58s  
+  Ô£ô it filters products by the max price slider value                                                                                         1.65s  
+  Ô£ô it shows gehna coins balance in the account dropdown for logged in users                                                                  1.79s  
+  Ô£ô it keeps account as a plain login link for guests without coins                                                                           2.13s  
+  Ô£ô it credits gehna coins to the user when placing an order with a coins coupon                                                              0.65s  
+  Ô£ô it lets users redeem gehna coins to reduce the checkout total                                                                             3.38s  
+  Ô£ô it clamps gehna coin redemption to the available coin balance                                                                             2.29s  
+  Ô£ô it validates and removes applied gehna coins from the checkout session                                                                    0.09s  
+  Ô£ô it rejects razorpay payment when gehna coins cover the entire order                                                                       0.11s  
+  Ô£ô it returns redeemed gehna coins when the order is cancelled                                                                               0.79s  
+
+   PASS  Tests\Feature\GuestCouponTest
+  Ô£ô it lets a guest apply a coupon without being sent to login                                                                                0.14s  
+  Ô£ô it tells the guest exactly how much the coupon saves them                                                                                 0.09s  
+  Ô£ô it shows the guest the discount in the cart summary                                                                                       1.85s  
+  Ô£ô it describes a buy one get one coupon by the free items it gives away                                                                     2.52s  
+  Ô£ô it explains why a coupon cannot be used instead of silently ignoring it                                                                   2.49s  
+  Ô£ô it reports an unknown code to a guest                                                                                                     0.07s  
+  Ô£ô it refuses an expired coupon to a guest                                                                                                   0.10s  
+  Ô£ô it refuses a coupon once its global limit is spent                                                                                        0.14s  
+  Ô£ô it lets a guest remove a coupon again                                                                                                     1.95s  
+  Ô£ô it keeps the guest coupon in the session so it survives the login at checkout                                                             0.06s  
+
+   PASS  Tests\Feature\LiveMetalRatesTest
+  Ô£ô it shows the live button in the storefront top bar                                                                                        0.22s  
+  Ô£ô it renders gold and silver rates in the popup at ten grams                                                                                0.09s  
+  Ô£ô it converts ounce denominated high and low to the ten gram basis                                                                          0.11s  
+  Ô£ô it exposes the same rates through the refresh endpoint                                                                                    0.25s  
+  Ô£ô it sends the access token the provider requires                                                                                           0.11s  
+  Ô£ô it serves a single call per cache window                                                                                                  0.17s  
+  Ô£ô it keeps the live button and the promo in flow so they cannot overlap                                                                     0.22s  
+  Ô£ô it keeps the live rates stylesheet inside a single style block                                                                            0.09s  
+  Ô£ô it never leaks the popup styles into the rendered markup                                                                                  0.12s  
+  Ô£ô it flags a negative day on the rate and turns the card edge red                                                                           0.15s  
+  Ô£ô it reports unavailability instead of breaking when the key is missing                                                                     0.10s  
+  Ô£ô it keeps the last good rates when the provider starts failing                                                                             0.11s  
+  Ô£ô it recovers as soon as the provider comes back                                                                                            0.10s  
+  Ô£ô it survives a provider response that is missing the price                                                                                 0.11s  
+
+   PASS  Tests\Feature\OrderStatusAutoBookTest
+  Ô£ô it does not create a duplicate shipment when auto booking keeps failing on status updates                                                 0.13s  
+  Ô£ô it retries auto booking on the existing shipment and completes it without duplicates                                                      0.11s  
+  Ô£ô it never books a shipment twice once the tracking number exists                                                                           0.09s  
+
+   PASS  Tests\Feature\ProductDiscountPricingTest
+  Ô£ô product page shows the discounted variation price with its regular price and percentage off                                               1.77s  
+  Ô£ô shop listing uses the cheapest variation price and its discount                                                                           2.10s  
+  Ô£ô adding a variation to the cart stores its discounted price                                                                                0.05s  
+  Ô£ô admin product page reports the variation price range instead of the product record price                                                  0.16s  
+  Ô£ô saving a percentage discount applies it to the storefront price                                                                           2.82s  
+  Ô£ô selecting no discount clears the stored sale price and storefront discount                                                                1.98s  
+  Ô£ô saving a discount type without a value is rejected                                                                                        0.21s  
+
+   PASS  Tests\Feature\ProductReviewTest
+  Ô£ô it lets a logged in user post a review and see it immediately on the product page                                                         2.30s  
+  Ô£ô it returns the freshly rendered review list over ajax so it appears without a page reload                                                 0.06s  
+  Ô£ô it updates the same review when the same user reviews the same product again                                                              0.09s  
+  Ô£ô it validates rating and comment when posting a review                                                                                     0.22s  
+  Ô£ô it requires login before a user can submit a review                                                                                       0.12s  
+  Ô£ô it shows the review form only to logged in buyers and a login prompt to guests                                                            7.17s  
+  Ô£ô it lets the review author update their own review                                                                                         0.15s  
+  Ô£ô it does not let another user update someone elses review                                                                                  0.09s  
+  Ô£ô it lets the review author delete their own review                                                                                         0.20s  
+  Ô£ô it does not let another user delete someone elses review                                                                                  0.16s  
+  Ô£ô it shows edit and delete actions only to the review author                                                                                4.26s  
+  Ô£ô it uploads and displays up to three review images                                                                                         0.08s  
+  Ô£ô it rejects a fourth review image and unsupported file types                                                                               0.09s  
+  Ô£ô it lets the author add and remove images while editing without exceeding three                                                            0.09s  
+  Ô£ô it does not let an author remove an image belonging to another review                                                                     0.07s  
+  Ô£ô it deletes stored images when the author deletes the review                                                                               0.07s  
+  Ô£ô it does not let a user review a product they have not purchased                                                                           0.05s  
+  Ô£ô it does not count cancelled orders as a purchase for reviewing                                                                            0.05s  
+
+   PASS  Tests\Feature\ProductVariationGalleryTest
+  Ô£ô product details shows only the selected variation images, description and effective price                                                 1.51s  
+  Ô£ô quick view previews the default variation media, description and effective price                                                          0.07s  
+
+   PASS  Tests\Feature\ProductVideoUploadTest
+  Ô£ô admin can upload a short video along with the product images                                                                              0.08s  
+  Ô£ô non video files are rejected for the videos field                                                                                         0.07s  
+  Ô£ô product page renders the uploaded video inside the gallery                                                                                1.46s  
+  Ô£ô product videos are streamed with byte range support so playback starts immediately                                                        0.12s  
+  Ô£ô video and images together show the image first and keep the player behind its thumbnail                                                   2.10s  
+  Ô£ô a product with only a video displays the player instead of the placeholder image                                                          2.10s  
+  Ô£ô admin can delete a product video and the primary flag moves to the next clip                                                              0.08s  
+
+   FAIL  Tests\Feature\ProfileTest
+  Ô¿» profile page is displayed                                                                                                                 0.17s  
+  Ô¿» profile information can be updated                                                                                                        0.08s  
+  Ô¿» email verification status is unchanged when the email address is unchanged                                                                0.09s  
+  Ô¿» user can delete their account                                                                                                             0.11s  
+  Ô¿» correct password must be provided to delete account                                                                                       0.14s  
+
+   PASS  Tests\Feature\RegistrationPhoneTest
+  Ô£ô it stores the mobile number when a user signs up                                                                                          0.13s  
+  Ô£ô it rejects signup when the mobile number is missing                                                                                       0.12s  
+  Ô£ô it rejects signup with an invalid mobile number format                                                                                    0.10s  
+  Ô£ô it rejects signup when the mobile number is already taken                                                                                 0.11s  
+
+   PASS  Tests\Feature\RelatedProductsTest
+  Ô£ô it shows other same-category products below the product details                                                                           2.18s  
+  Ô£ô it hides the suggestions section when the category has no other products                                                                  1.87s  
+  Ô£ô it serves the shop page with the popularity sort without a featured column                                                                2.58s  
+
+   FAIL  Tests\Feature\SettingsMailDriverTest
+  Ô¿» it switches the admin-configured mail provider to resend and stores the api key encrypted                                                 0.07s  
+  Ô£ô it preserves the stored resend api key when the input is left blank                                                                       0.08s  
+  Ô¿» it applies the resend transport to the runtime mail config                                                                                0.10s  
+  Ô¿» it falls back to the smtp transport when mail_driver is empty                                                                             0.12s  
+  Ô¿» it reverts to smtp transport when the admin switches the provider back to smtp                                                            0.18s  
+  Ô¿» it rejects an unknown mail driver                                                                                                         0.13s  
+
+   PASS  Tests\Feature\SettingsMailTest
+  Ô£ô it renders the SMTP configuration section without the removed driver block                                                                0.15s  
+  Ô£ô it shows the stored smtps encryption as the SSL option instead of None                                                                    0.14s  
+  Ô£ô it renders a legacy tls encryption value as the STARTTLS option                                                                           0.17s  
+  Ô£ô it saves smtp settings without a mail_driver field                                                                                        0.15s  
+  Ô£ô it rejects an unknown encryption value                                                                                                    0.13s  
+  Ô£ô it stores the smtp password encrypted                                                                                                     0.11s  
+  Ô£ô it keeps the stored password when the password field is left blank                                                                        0.08s  
+  Ô£ô it maps the settings row onto the mail config                                                                                             0.06s  
+  Ô£ô it always builds a usable smtp transport with dataset "new ssl value"                                                                     0.06s  
+  Ô£ô it always builds a usable smtp transport with dataset "legacy ssl value"                                                                  0.05s  
+  Ô£ô it always builds a usable smtp transport with dataset "new starttls value"                                                                0.07s  
+  Ô£ô it always builds a usable smtp transport with dataset "legacy tls value"                                                                  0.06s  
+  Ô£ô it always builds a usable smtp transport with dataset "empty string"                                                                      0.08s  
+  Ô£ô it always builds a usable smtp transport with dataset "null value"                                                                        0.14s  
+  Ô£ô it applies the stored settings when the provider boots                                                                                    0.05s  
+  Ô£ô it leaves the mail config alone until an smtp host is configured                                                                          0.06s  
+  Ô£ô it sends the test email through the same config path                                                                                      0.09s  
+  Ô£ô it asks for a recipient before sending a test email                                                                                       0.08s  
+
+   PASS  Tests\Feature\SiteLocationTest
+  Ô£ô it stores, shows and clears the delivery pincode in the session                                                                           0.14s  
+  Ô£ô it rejects invalid pincodes with ('12')                                                                                                   0.05s  
+  Ô£ô it rejects invalid pincodes with ('011001')                                                                                               0.10s  
+  Ô£ô it rejects invalid pincodes with ('1100012')                                                                                              0.09s  
+  Ô£ô it rejects invalid pincodes with ('abcdef')                                                                                               0.07s  
+  Ô£ô it rejects invalid pincodes with ('11000-')                                                                                               0.08s  
+  Ô£ô it auto-detects the pincode from coordinates and returns a confirmable payload                                                            0.09s  
+  Ô£ô it falls back to the second geocoder when the first one has no pincode                                                                    0.06s  
+  Ô£ô it responds with a helpful error when no provider can resolve a pincode                                                                   0.07s  
+  Ô£ô it rejects invalid coordinates                                                                                                            0.07s  
+
+   PASS  Tests\Feature\TransactionalEmailsTest
+  Ô£ô it sends a welcome email to a new user on registration                                                                                    0.12s  
+  Ô£ô it renders the welcome email view with the user name and store name                                                                       0.04s  
+  Ô£ô it sends a return request email to the order owner                                                                                        0.14s  
+  Ô£ô it does not send a return request email when the order belongs to another user                                                            0.11s  
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\Auth\RegistrationTest > new users can register                                                                              
+  The user is not authenticated
+Failed asserting that false is true.
+
+  at tests\Feature\Auth\RegistrationTest.php:22
+     18Ôûò         'password' => 'password',
+     19Ôûò         'password_confirmation' => 'password',
+     20Ôûò     ]);
+     21Ôûò 
+  Ô×£  22Ôûò     $this->assertAuthenticated();
+     23Ôûò     $response->assertRedirect(route('dashboard', absolute: false));
+     24Ôûò 
+     25Ôûò     $registeredUser = User::where('email', 'test@example.com')->first();
+     26Ôûò
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\CheckoutFlowTest > it deducts stock on payment capture and restocks on full refund webhook                                  
+  Failed asserting that 8 is identical to 10.
+
+  at tests\Feature\CheckoutFlowTest.php:213
+    209Ôûò     postJson(route('webhooks.razorpay'), $refundPayload, [
+    210Ôûò         'X-Razorpay-Signature' => $webhookSignature,
+    211Ôûò     ])->assertOk();
+    212Ôûò 
+  Ô×£ 213Ôûò     expect((int) $product->fresh()->stock)->toBe(10);
+    214Ôûò });
+    215Ôûò
+
+  1   tests\Feature\CheckoutFlowTest.php:213
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\ProfileTest > profile page is displayed                                                                                     
+  Expected response status code [200] but received 302.
+Failed asserting that 302 is identical to 200.
+
+  at tests\Feature\ProfileTest.php:12
+      8Ôûò     $response = $this
+      9Ôûò         ->actingAs($user)
+     10Ôûò         ->get('/profile');
+     11Ôûò 
+  Ô×£  12Ôûò     $response->assertOk();
+     13Ôûò });
+     14Ôûò 
+     15Ôûò test('profile information can be updated', function () {
+     16Ôûò     $user = User::factory()->create();
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\ProfileTest > profile information can be updated                                                                            
+  Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'http://localhost/profile'
++'http://localhost/account'
+
+  at tests\Feature\ProfileTest.php:27
+     23Ôûò         ]);
+     24Ôûò 
+     25Ôûò     $response
+     26Ôûò         ->assertSessionHasNoErrors()
+  Ô×£  27Ôûò         ->assertRedirect('/profile');
+     28Ôûò 
+     29Ôûò     $user->refresh();
+     30Ôûò 
+     31Ôûò     $this->assertSame('Test User', $user->name);
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\ProfileTest > email verification status is unchanged when the email address is unchanged                                    
+  Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'http://localhost/profile'
++'http://localhost/account'
+
+  at tests\Feature\ProfileTest.php:48
+     44Ôûò         ]);
+     45Ôûò 
+     46Ôûò     $response
+     47Ôûò         ->assertSessionHasNoErrors()
+  Ô×£  48Ôûò         ->assertRedirect('/profile');
+     49Ôûò 
+     50Ôûò     $this->assertNotNull($user->refresh()->email_verified_at);
+     51Ôûò });
+     52Ôûò
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\ProfileTest > user can delete their account                                                                                 
+  Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'http://localhost'
++'http://localhost/account'
+
+  at tests\Feature\ProfileTest.php:64
+     60Ôûò         ]);
+     61Ôûò 
+     62Ôûò     $response
+     63Ôûò         ->assertSessionHasNoErrors()
+  Ô×£  64Ôûò         ->assertRedirect('/');
+     65Ôûò 
+     66Ôûò     $this->assertGuest();
+     67Ôûò     $this->assertNull($user->fresh());
+     68Ôûò });
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\ProfileTest > correct password must be provided to delete account                                                           
+  Session is missing expected key [errors].
+Failed asserting that false is true.
+
+  at tests\Feature\ProfileTest.php:81
+     77Ôûò             'password' => 'wrong-password',
+     78Ôûò         ]);
+     79Ôûò 
+     80Ôûò     $response
+  Ô×£  81Ôûò         ->assertSessionHasErrorsIn('userDeletion', 'password')
+     82Ôûò         ->assertRedirect('/profile');
+     83Ôûò 
+     84Ôûò     $this->assertNotNull($user->fresh());
+     85Ôûò });
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\SettingsMailDriverTest > it switches the admin-configured mail provider to resend and stores the api key encrypted          
+  Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'resend'
++'smtp'
+
+  at tests\Feature\SettingsMailDriverTest.php:49
+     45Ôûò     ])->assertRedirect(route('admin.settings.edit'));
+     46Ôûò 
+     47Ôûò     $setting = Setting::first();
+     48Ôûò 
+  Ô×£  49Ôûò     expect($setting->mail_driver)->toBe('resend');
+     50Ôûò     expect($setting->resend_api_key)->toBe('re_test_resend_api_key');
+     51Ôûò     expect($setting->getRawOriginal('resend_api_key'))
+     52Ôûò         ->not->toBe('re_test_resend_api_key');
+     53Ôûò     expect(DB::table('settings')->where('resend_api_key', 're_test_resend_api_key')->exists())
+
+  1   tests\Feature\SettingsMailDriverTest.php:49
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\SettingsMailDriverTest > it applies the resend transport to the runtime mail config                   ReflectionException   
+  Method App\Http\Controllers\Backend\BackendSettingController::applyMailConfig() does not exist
+
+  at tests\Feature\SettingsMailDriverTest.php:91
+     87Ôûò         'smtp_from_name' => 'Store',
+     88Ôûò     ]);
+     89Ôûò 
+     90Ôûò     $controller = new BackendSettingController();
+  Ô×£  91Ôûò     $reflection = new ReflectionMethod($controller, 'applyMailConfig');
+     92Ôûò     $reflection->setAccessible(true);
+     93Ôûò     $reflection->invoke($controller, Setting::first());
+     94Ôûò 
+     95Ôûò     expect(Config::get('mail.default'))->toBe('resend');
+
+  1   tests\Feature\SettingsMailDriverTest.php:91
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\SettingsMailDriverTest > it falls back to the smtp transport when mail_driver is empty                ReflectionException   
+  Method App\Http\Controllers\Backend\BackendSettingController::applyMailConfig() does not exist
+
+  at tests\Feature\SettingsMailDriverTest.php:110
+    106Ôûò     $setting->mail_driver = '';
+    107Ôûò     $setting->save();
+    108Ôûò 
+    109Ôûò     $controller = new BackendSettingController();
+  Ô×£ 110Ôûò     $reflection = new ReflectionMethod($controller, 'applyMailConfig');
+    111Ôûò     $reflection->setAccessible(true);
+    112Ôûò     $reflection->invoke($controller, Setting::first());
+    113Ôûò 
+    114Ôûò     expect(Config::get('mail.default'))->toBe('smtp');
+
+  1   tests\Feature\SettingsMailDriverTest.php:110
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\SettingsMailDriverTest > it reverts to smtp transport when the admin switches the provider back to smtp                     
+  Failed asserting that two strings are identical.
+--- Expected
++++ Actual
+@@ @@
+-'smtp'
++'resend'
+
+  at tests\Feature\SettingsMailDriverTest.php:140
+    136Ôûò     ])->assertRedirect(route('admin.settings.edit'));
+    137Ôûò 
+    138Ôûò     $setting = Setting::first()->refresh();
+    139Ôûò 
+  Ô×£ 140Ôûò     expect($setting->mail_driver)->toBe('smtp');
+    141Ôûò     expect($setting->smtp_host)->toBe('smtp.mailtrap.io');
+    142Ôûò     expect($setting->smtp_password)->toBe('pass');
+    143Ôûò     expect($setting->resend_api_key)->toBe('re_stored'); // untouched by the smtp payload
+    144Ôûò });
+
+  1   tests\Feature\SettingsMailDriverTest.php:140
+
+  ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇ  
+   FAILED  Tests\Feature\SettingsMailDriverTest > it rejects an unknown mail driver                                                                  
+  Session is missing expected key [errors].
+Failed asserting that false is true.
+
+  at tests\Feature\SettingsMailDriverTest.php:154
+    150Ôûò     actingAs($admin);
+    151Ôûò 
+    152Ôûò     put(route('admin.settings.update'), [
+    153Ôûò         'mail_driver' => 'bogus_driver',
+  Ô×£ 154Ôûò     ])->assertSessionHasErrors(['mail_driver']);
+    155Ôûò });
+
+
+  Tests:    12 failed, 2 skipped, 340 passed (1691 assertions)
+  Duration: 196.56s
+
