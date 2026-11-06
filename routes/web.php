@@ -202,6 +202,9 @@ Route::delete('/storefront/cart/remove', [StorefrontCartController::class, 'remo
 // Product videos are also used by the admin product pages.
 Route::get('/product-videos/{productVideo}', ProductVideoStreamController::class)
     ->name('product.videos.stream');
+Route::get('/search/suggestions', [FrontendSearchController::class, 'suggestions'])
+    ->name('search.suggestions');
+Route::get('/search', [FrontendSearchController::class, 'search'])->name('search');
 Route::post('/wishlist/toggle', [StorefrontWishlistController::class, 'toggle'])
     ->name('storefront.wishlist.toggle');
 Route::get('/storefront/best-sellers', [StorefrontProductController::class, 'moreBestSellers'])
@@ -214,7 +217,6 @@ Route::get('/product/{slug}', [FrontendProductController::class,'show'])->name('
 Route::get('/product/{id}/quick-view', [FrontendProductController::class,'quickView'])->name('product.quick-view');
 // Videos are streamed through the app so the browser can fetch them in byte ranges
 // (PHP's built-in server and some hosts ignore the Range header and push the whole file).
-Route::get('/search', [FrontendSearchController::class,'search'])->name('search');
 Route::get('/categories', [FrontendCategoryController::class,'index'])->name('categories.index');
 Route::get('/category/{slug}', [FrontendCategoryController::class,'show'])->name('category.show');
 Route::get('/brands', [FrontendBrandController::class,'index'])->name('brands.index');
@@ -273,7 +275,12 @@ Route::post('/webhooks/razorpay', [FrontendCheckoutController::class, 'razorpayW
     // Auth
         // Auth::routes();
 
-    // Customer account routes remain disabled; checkout is available to signed-in shoppers.
+    Route::middleware('auth')->prefix('account')->name('account.')->group(function () {
+        Route::get('/', [FrontendAccountController::class, 'index'])->name('index');
+        Route::get('/profile', [FrontendAccountController::class, 'index'])->name('profile');
+        Route::get('/orders', [FrontendAccountController::class, 'index'])->name('orders');
+    });
+
     Route::middleware(['auth'])->group(function(){
         Route::get('/checkout', [FrontendCheckoutController::class, 'index'])->name('checkout.index');
         Route::post('/checkout/coupon', [FrontendCheckoutController::class, 'applyCoupon'])->name('checkout.coupon.apply');

@@ -480,7 +480,7 @@
 @endsection
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('frontend/css/checkout.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/checkout.min.css') }}">
 @endpush
 
 @if($razorpayProvider)

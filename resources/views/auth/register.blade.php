@@ -3,7 +3,7 @@
 @section('title', 'Create Account | ' . (optional($appSetting)->site_name ?: 'Maanyas'))
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('frontend/css/auth-register.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/auth-register.min.css') }}">
 @endsection
 
 @section('content')

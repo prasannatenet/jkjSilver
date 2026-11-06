@@ -45,6 +45,7 @@ class StorefrontCategoryController extends Controller
     private function renderProductListing(Request $request, ?Category $category = null): View
     {
         $filters = $request->validate([
+            'q' => ['nullable', 'string', 'max:120'],
             'category' => ['nullable', 'integer', 'exists:categories,id'],
             'brand' => ['nullable', 'integer', 'exists:brands,id'],
             'min_price' => ['nullable', 'numeric', 'min:0', 'max:100000000'],
@@ -72,6 +73,12 @@ class StorefrontCategoryController extends Controller
             : null;
         $priceSql = $this->effectivePriceSql();
         $productQuery = Product::query()->where('is_active', true);
+
+        if (! empty($filters['q'])) {
+            $term = trim($filters['q']);
+            $like = '%'.str_replace(['%', '_'], ['\\%', '\\_'], $term).'%';
+            $productQuery->where('name', 'like', $like);
+        }
 
         if ($categoryIds !== null) {
             $productQuery->whereIn('category_id', $categoryIds);

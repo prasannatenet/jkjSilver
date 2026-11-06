@@ -29,9 +29,12 @@
             <img src="{{ optional($appSetting)->logo_path ? asset('storage/' . $appSetting->logo_path) : asset('frontend/images/logo-jk-320.jpeg') }}"
                 alt="{{ optional($appSetting)->site_name ?: 'Maanyas' }}">
         </a>
-        <form class="search" role="search" action="#">
+        <form class="search" role="search" action="{{ route('search') }}" method="GET" autocomplete="off">
             <input type="search" name="q" placeholder="What are you looking for?" aria-label="Search products"
-                data-category-names='@json(($searchCategoryNames ?? collect())->all())'>
+                aria-autocomplete="list" aria-expanded="false" aria-controls="search-suggestions"
+                data-category-names='@json(($searchCategoryNames ?? collect())->all())'
+                data-suggestions-url="{{ route('search.suggestions') }}">
+            <div class="search-suggestions" id="search-suggestions" role="listbox" aria-label="Search suggestions" hidden></div>
             <button type="submit" aria-label="Search">
                 <svg width="23" height="23" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <circle cx="10.8" cy="10.8" r="7.2" stroke="currentColor" stroke-width="2"></circle>
@@ -56,13 +59,33 @@
                 </svg>
                 <span>Find a Store</span>
             </a>
-            <a class="action-link" href="{{ auth()->check() ? route('storefront') : route('login') }}">
-                <svg width="23" height="25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"></circle>
-                    <path d="M3.5 21a8.5 8.5 0 0 1 17 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
-                </svg>
-                <span>{{ auth()->check() ? auth()->user()->name : 'Sign in/ Register' }}</span>
-            </a>
+            @auth
+                <div class="account-menu">
+                    <a class="action-link" href="{{ route('storefront') }}" aria-haspopup="true"
+                        aria-controls="account-dropdown">
+                        <svg width="23" height="25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"></circle>
+                            <path d="M3.5 21a8.5 8.5 0 0 1 17 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                        </svg>
+                        <span>{{ auth()->user()->name }}</span>
+                    </a>
+                    <div class="account-dropdown" id="account-dropdown">
+                        <a href="{{ route('account.profile') }}">Profile</a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit">Logout</button>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <a class="action-link" href="{{ route('login') }}">
+                    <svg width="23" height="25" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"></circle>
+                        <path d="M3.5 21a8.5 8.5 0 0 1 17 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+                    </svg>
+                    <span>Sign in/ Register</span>
+                </a>
+            @endauth
             <button class="icon-link bag-link cart-drawer-trigger" type="button"
                 aria-label="Open shopping bag, {{ $headerCartCount ?? 0 }} items"
                 aria-controls="cart-drawer" aria-expanded="false">

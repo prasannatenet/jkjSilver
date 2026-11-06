@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
             $request->session()->forget('url.intended');
         }
 
-        return redirect()->intended(route('storefront', absolute: false));
+        return redirect()->intended(route('account.index', absolute: false));
     }
 
     /**

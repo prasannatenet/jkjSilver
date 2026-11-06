@@ -104,6 +104,6 @@
     {{-- Rates are indicative spot prices, refreshed periodically. --}}
     <p class="visually-hidden">Gold and silver spot prices are indicative and may differ from the final billed price.</p>
 
-<link rel="stylesheet" href="{{ asset('frontend/css/topbar.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/topbar.min.css') }}">
 
 </div>

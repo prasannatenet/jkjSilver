@@ -1,9 +1,9 @@
 @extends('layouts.frontend')
 
-@section('title', ($category?->name ?? 'All Jewellery') . ' | ' . (optional($appSetting)->site_name ?: 'Maanyas'))
+@section('title', (!empty($filters['q']) ? 'Search: ' . $filters['q'] : ($category?->name ?? 'All Jewellery')) . ' | ' . (optional($appSetting)->site_name ?: 'Maanyas'))
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('frontend/css/storefront-category.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/storefront-category.min.css') }}">
 @endsection
 
 @section('content')
@@ -40,6 +40,9 @@
                     </div>
                 @endif
                 <form method="GET" action="{{ $category ? url('/category/' . $category->slug) : route('storefront.products') }}">
+                @if (!empty($filters['q']))
+                    <input type="hidden" name="q" value="{{ $filters['q'] }}">
+                @endif
                 <fieldset class="category-filter-group">
                     <legend>Categories</legend>
                     @if ($isAllProducts)
@@ -111,7 +114,13 @@
 
             <section aria-label="{{ $category?->name ?? 'All Jewellery' }} products">
                 <div class="category-products-heading">
-                    <p><strong>{{ $products->total() }}</strong> {{ Str::plural('product', $products->total()) }}</p>
+                    <p>
+                        @if (!empty($filters['q']))
+                            <strong>{{ $products->total() }}</strong> {{ Str::plural('result', $products->total()) }} for “{{ $filters['q'] }}”
+                        @else
+                            <strong>{{ $products->total() }}</strong> {{ Str::plural('product', $products->total()) }}
+                        @endif
+                    </p>
                 </div>
 
                 <div class="category-product-grid">

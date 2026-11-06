@@ -23,6 +23,123 @@ const searchCategoryNames = searchInput
     ? JSON.parse(searchInput.dataset.categoryNames || "[]").filter((name) => typeof name === "string" && name.trim())
     : [];
 
+if (searchInput) {
+    const searchForm = searchInput.closest("form");
+    const suggestions = searchForm.querySelector(".search-suggestions");
+    let suggestionController;
+    let suggestionTimer;
+    let activeSuggestion = -1;
+
+    const closeSuggestions = () => {
+        suggestions.hidden = true;
+        suggestions.replaceChildren();
+        searchInput.setAttribute("aria-expanded", "false");
+        activeSuggestion = -1;
+    };
+
+    const showSuggestions = (data) => {
+        suggestions.replaceChildren();
+        const groups = [
+            ["Categories", data.categories || []],
+            ["Products", data.products || []],
+        ];
+
+        groups.forEach(([label, items]) => {
+            if (!items.length) return;
+
+            const group = document.createElement("div");
+            group.className = "search-suggestion-group";
+            group.setAttribute("role", "group");
+            group.setAttribute("aria-label", label);
+
+            const heading = document.createElement("p");
+            heading.className = "search-suggestion-heading";
+            heading.textContent = label;
+            group.append(heading);
+
+            items.forEach((item) => {
+                const link = document.createElement("a");
+                link.className = "search-suggestion";
+                link.href = item.url;
+                link.textContent = item.name;
+                link.setAttribute("role", "option");
+                group.append(link);
+            });
+
+            suggestions.append(group);
+        });
+
+        if (!suggestions.childElementCount) {
+            closeSuggestions();
+            return;
+        }
+
+        suggestions.hidden = false;
+        searchInput.setAttribute("aria-expanded", "true");
+        activeSuggestion = -1;
+    };
+
+    searchInput.addEventListener("input", () => {
+        window.clearTimeout(suggestionTimer);
+        suggestionController?.abort();
+
+        const term = searchInput.value.trim();
+        if (term.length <= 3) {
+            closeSuggestions();
+            return;
+        }
+
+        suggestionTimer = window.setTimeout(async () => {
+            suggestionController = new AbortController();
+            try {
+                const url = new URL(searchInput.dataset.suggestionsUrl, window.location.origin);
+                url.searchParams.set("q", term);
+                const response = await fetch(url, {
+                    headers: { Accept: "application/json" },
+                    signal: suggestionController.signal,
+                });
+                if (!response.ok) throw new Error(`Search suggestions failed (${response.status}).`);
+
+                const data = await response.json();
+                if (searchInput.value.trim() === term) showSuggestions(data);
+            } catch (error) {
+                if (error.name !== "AbortError") {
+                    closeSuggestions();
+                    console.error(error);
+                }
+            }
+        }, 200);
+    });
+
+    searchInput.addEventListener("keydown", (event) => {
+        const options = [...suggestions.querySelectorAll('[role="option"]')];
+        if (suggestions.hidden || !options.length) {
+            if (event.key === "Escape") closeSuggestions();
+            return;
+        }
+
+        if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+            event.preventDefault();
+            activeSuggestion = (activeSuggestion + (event.key === "ArrowDown" ? 1 : -1) + options.length) % options.length;
+            options.forEach((option, index) => option.setAttribute("aria-selected", String(index === activeSuggestion)));
+            options[activeSuggestion].scrollIntoView({ block: "nearest" });
+        } else if (event.key === "Enter" && activeSuggestion >= 0) {
+            event.preventDefault();
+            options[activeSuggestion].click();
+        } else if (event.key === "Escape") {
+            closeSuggestions();
+        }
+    });
+
+    searchInput.addEventListener("blur", (event) => {
+        if (!searchForm.contains(event.relatedTarget)) closeSuggestions();
+    });
+    searchForm.addEventListener("submit", () => closeSuggestions());
+    document.addEventListener("click", (event) => {
+        if (!searchForm.contains(event.target)) closeSuggestions();
+    });
+}
+
 if (searchInput && searchCategoryNames.length) {
     const defaultPlaceholder = "What are you looking for?";
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

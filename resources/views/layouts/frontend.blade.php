@@ -17,7 +17,7 @@
         href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.min.css') }}">
 
     @yield('styles')
     @stack('styles')
@@ -31,7 +31,7 @@
     @include('layouts.footer')
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{{ asset('frontend/js/script.js') }}"></script>
+    <script src="{{ asset('frontend/js/script.min.js') }}"></script>
     @stack('scripts')
 </body>
 

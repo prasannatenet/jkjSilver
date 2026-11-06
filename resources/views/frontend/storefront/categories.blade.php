@@ -3,7 +3,7 @@
 @section('title', 'Shop by Category | ' . (optional($appSetting)->site_name ?: 'Maanyas'))
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('frontend/css/storefront-categories.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/storefront-categories.min.css') }}">
 @endsection
 
 @section('content')

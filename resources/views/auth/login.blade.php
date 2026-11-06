@@ -3,7 +3,7 @@
 @section('title', 'Sign In | ' . (optional($appSetting)->site_name ?: 'Maanyas'))
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('frontend/css/auth-login.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/auth-login.min.css') }}">
 @endsection
 
 @section('content')
