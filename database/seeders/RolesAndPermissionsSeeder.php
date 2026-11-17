@@ -30,10 +30,10 @@ class RolesAndPermissionsSeeder extends Seeder
         $admin->givePermissionTo(Permission::all());
 
         $adminUser = \App\Models\User::firstOrCreate(
-            ['email' => 'admin@vasuhjewels.com'],
+            ['email' => 'info@jksilverstore.com'],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('password'),
+                'password' => Hash::make('TenetiJK@121'),
             ]
         );
         $adminUser->syncRoles(['admin']);

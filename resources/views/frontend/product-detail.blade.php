@@ -269,7 +269,11 @@
                     </div>
 
                     <div class="product-actions">
-                        <button class="product-add-to-cart" type="button" @disabled($currentStock < 1)>
+                        <button class="product-add-to-cart" type="button"
+                            data-cart-add-url="{{ route('storefront.cart.add') }}"
+                            data-product-id="{{ $product->id }}"
+                            data-variation-id="{{ $defaultVariation?->id }}"
+                            @disabled($currentStock < 1)>
                             <span class="material-symbols-outlined" aria-hidden="true">shopping_bag</span>
                             Add to Cart
                         </button>

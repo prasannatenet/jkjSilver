@@ -5,7 +5,7 @@
  */
 
 import './bootstrap';
-import { createApp } from 'vue';
+import { createApp, defineAsyncComponent } from 'vue';
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -15,8 +15,14 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+/**
+ * ExampleComponent is lazy-loaded using defineAsyncComponent.
+ * The component is loaded only when it is first rendered in the DOM.
+ */
+
+const ExampleComponent = defineAsyncComponent(() => import('./components/ExampleComponent.vue'))
+
+app.component('example-component', ExampleComponent)
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,8 +32,8 @@ app.component('example-component', ExampleComponent);
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
+// Object.entries(import.meta.glob('./**/*.vue', { eager: false })).forEach(([path, definition]) => {
+//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), defineAsyncComponent(() => import('./' + path)));
 // });
 
 /**

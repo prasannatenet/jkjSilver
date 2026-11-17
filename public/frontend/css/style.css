@@ -356,7 +356,7 @@ body.cart-drawer-open { overflow: hidden;}
 .hero-pagination .swiper-pagination-bullet:focus-visible { outline: 2px solid #fff;  outline-offset: 3px;}
 
 @media(max-width: 767px) {
-    .hero-slider picture { aspect-ratio: 1.2 / 1; }
+    
     .hero-controls {  right: 16px; bottom: 14px; }
 }
 

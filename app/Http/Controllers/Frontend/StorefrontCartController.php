@@ -18,6 +18,7 @@ class StorefrontCartController extends Controller
     {
         $data = $request->validate([
             'product_id' => ['required', 'integer', 'exists:products,id'],
+            'product_variation_id' => ['nullable', 'integer', 'min:1'],
             'quantity' => ['nullable', 'integer', 'min:1', 'max:99'],
         ]);
 
@@ -25,9 +26,17 @@ class StorefrontCartController extends Controller
             ->where('is_active', true)
             ->with('variations')
             ->findOrFail($data['product_id']);
-        $variation = $product->defaultVariation();
+        $variation = ! empty($data['product_variation_id'])
+            ? $product->variations->firstWhere('id', (int) $data['product_variation_id'])
+            : $product->defaultVariation();
 
-        if (($variation && (int) $variation->stock < 1)
+        if (! empty($data['product_variation_id']) && ! $variation) {
+            throw ValidationException::withMessages([
+                'product_variation_id' => 'The selected option is not available for this item.',
+            ]);
+        }
+
+        if (($variation && (! $variation->is_active || (int) $variation->stock < 1))
             || (! $variation && $product->manage_stock && (int) $product->total_stock < 1)) {
             throw ValidationException::withMessages([
                 'product_id' => 'This item is out of stock.',
@@ -36,6 +45,9 @@ class StorefrontCartController extends Controller
 
         $quantity = (int) ($data['quantity'] ?? 1);
         $price = $variation ? $variation->effectivePrice() : $product->effectivePrice();
+        $availableStock = $variation
+            ? (int) $variation->stock
+            : ($product->manage_stock ? (int) $product->total_stock : null);
 
         if (Auth::check()) {
             $line = Cart::query()->firstOrNew([
@@ -44,6 +56,11 @@ class StorefrontCartController extends Controller
                 'product_variation_id' => $variation?->id,
                 'combo_id' => null,
             ]);
+            if ($availableStock !== null && (int) $line->quantity + $quantity > $availableStock) {
+                throw ValidationException::withMessages([
+                    'quantity' => 'The requested quantity exceeds the available stock.',
+                ]);
+            }
             $line->quantity = (int) $line->quantity + $quantity;
             $line->price = $price;
             $line->save();
@@ -54,6 +71,11 @@ class StorefrontCartController extends Controller
                 && (int) ($entry['product_variation_id'] ?? 0) === (int) ($variation?->id ?? 0));
 
             if ($lineIndex === false) {
+                if ($availableStock !== null && $quantity > $availableStock) {
+                    throw ValidationException::withMessages([
+                        'quantity' => 'The requested quantity exceeds the available stock.',
+                    ]);
+                }
                 $entries->push([
                     'product_id' => (int) $product->id,
                     'product_variation_id' => $variation?->id,
@@ -62,6 +84,11 @@ class StorefrontCartController extends Controller
                 ]);
             } else {
                 $entry = $entries->get($lineIndex);
+                if ($availableStock !== null && (int) ($entry['quantity'] ?? 0) + $quantity > $availableStock) {
+                    throw ValidationException::withMessages([
+                        'quantity' => 'The requested quantity exceeds the available stock.',
+                    ]);
+                }
                 $entry['quantity'] = (int) ($entry['quantity'] ?? 0) + $quantity;
                 $entry['price'] = $price;
                 $entries->put($lineIndex, $entry);

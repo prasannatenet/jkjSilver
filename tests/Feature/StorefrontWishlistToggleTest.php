@@ -38,6 +38,29 @@ it('saves and removes guest wishlist products across page requests', function ()
         ->assertSee('Your wishlist is empty.');
 });
 
+it('renders product detail wishlist state and updates it through the toggle endpoint', function () {
+    $product = Product::create([
+        'name' => 'Product Detail Wishlist Product',
+        'slug' => 'product-detail-wishlist-product',
+        'base_price' => 1250,
+        'is_active' => true,
+    ]);
+
+    $this->get(route('product.show', $product->slug))
+        ->assertOk()
+        ->assertSee('data-wishlist-key="product-' . $product->id . '"', false)
+        ->assertSee('aria-pressed="false"', false);
+
+    $this->postJson(route('storefront.wishlist.toggle'), ['product_id' => $product->id])
+        ->assertOk()
+        ->assertJsonPath('in_wishlist', true)
+        ->assertJsonPath('count', 1);
+
+    $this->get(route('product.show', $product->slug))
+        ->assertOk()
+        ->assertSee('aria-pressed="true"', false);
+});
+
 it('allows fallback homepage products to be wishlisted across page requests', function () {
     $toggleUrl = route('storefront.wishlist.toggle');
 
